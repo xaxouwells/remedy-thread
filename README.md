@@ -39,7 +39,7 @@ src/
 **src/threads/my-thread/index.ts:**
 
 ```typescript
-import type { ThreadMessageEvent } from 'servex-thread';
+import type { ThreadMessageEvent, Self } from 'servex-thread';
 
 interface Input {
   message: string;
@@ -51,7 +51,7 @@ interface Output {
 }
 
 // Message handler - corresponds to self.addEventListener('message')
-export async function Thread(event: ThreadMessageEvent<Input>): Promise<Output> {
+export async function Thread(event: ThreadMessageEvent, self: Self): Promise<Output> {
   const { message } = event.data;
 
   return {
@@ -104,7 +104,7 @@ Each thread can export up to 4 handlers:
 Handles messages from the client (corresponds to `self.addEventListener('message')`).
 
 ```typescript
-export async function Thread(event: ThreadMessageEvent<Input>): Promise<Output> {
+export async function Thread(event: ThreadMessageEvent, self: Self): Promise<Output> {
   // Process messages from client
   return result;
 }
@@ -115,7 +115,7 @@ export async function Thread(event: ThreadMessageEvent<Input>): Promise<Output> 
 Intercepts fetch requests (corresponds to `self.addEventListener('fetch')`).
 
 ```typescript
-export function ThreadFetch(event: ThreadFetchEvent): void {
+export function ThreadFetch(event: ThreadFetchEvent, self: Self): void {
   event.respondWith(
     caches.match(event.request).then(response =>
       response || fetch(event.request)
@@ -129,7 +129,7 @@ export function ThreadFetch(event: ThreadFetchEvent): void {
 Runs during service worker installation (corresponds to `self.addEventListener('install')`).
 
 ```typescript
-export function ThreadInstall(event: ThreadInstallEvent): void {
+export function ThreadInstall(event: ThreadInstallEvent, self: Self): void {
   event.waitUntil(
     caches.open('my-cache-v1').then(cache =>
       cache.addAll(['/','/ index.html'])
@@ -143,7 +143,7 @@ export function ThreadInstall(event: ThreadInstallEvent): void {
 Runs when service worker activates (corresponds to `self.addEventListener('activate')`).
 
 ```typescript
-export function ThreadActivate(event: ThreadActivateEvent): void {
+export function ThreadActivate(event: ThreadActivateEvent, self: Self): void {
   event.waitUntil(clients.claim());
 }
 ```

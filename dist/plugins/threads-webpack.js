@@ -3,12 +3,12 @@
 self.addEventListener('message', async (event) => {
   const { threadName } = event.data;
   if (threadName === '${e.name}') {
-    const result = await Thread_${t}(event);
+    const result = await Thread_${t}(event, self);
     if (event.source) {
       event.source.postMessage({ threadName: '${e.name}', data: result });
     }
   }
-});`}function j(e){return e.hasFetch?`  ThreadFetch_${e.name.replace(/-/g,"_")}(event);`:""}function C(e){return e.hasInstall?`    ThreadInstall_${e.name.replace(/-/g,"_")}(event)`:""}function M(e){return e.hasActivate?`    ThreadActivate_${e.name.replace(/-/g,"_")}(event)`:""}async function I(e){let t=[];if(!o.existsSync(e))return t;let a=o.readdirSync(e,{withFileTypes:!0});for(let s of a)if(s.isDirectory()){let n=h.join(e,s.name),r=h.join(n,"index.ts");if(o.existsSync(r)){let i=o.readFileSync(r,"utf-8");t.push({name:s.name,path:r,hasThread:/export\s+(const|async\s+function|function)\s+Thread\b/.test(i),hasFetch:/export\s+(const|async\s+function|function)\s+ThreadFetch\b/.test(i),hasInstall:/export\s+(const|async\s+function|function)\s+ThreadInstall\b/.test(i),hasActivate:/export\s+(const|async\s+function|function)\s+ThreadActivate\b/.test(i)})}}return t}function B(e){let t=e.map(d=>{let c=[],p=d.name.replace(/-/g,"_");return d.hasThread&&c.push(`Thread as Thread_${p}`),d.hasFetch&&c.push(`ThreadFetch as ThreadFetch_${p}`),d.hasInstall&&c.push(`ThreadInstall as ThreadInstall_${p}`),d.hasActivate&&c.push(`ThreadActivate as ThreadActivate_${p}`),`import { ${c.join(", ")} } from './${d.name}/index';`}).join(`
+});`}function j(e){return e.hasFetch?`  ThreadFetch_${e.name.replace(/-/g,"_")}(event, self);`:""}function C(e){return e.hasInstall?`    ThreadInstall_${e.name.replace(/-/g,"_")}(event, self);`:""}function M(e){return e.hasActivate?`    ThreadActivate_${e.name.replace(/-/g,"_")}(event, self);`:""}async function I(e){let t=[];if(!o.existsSync(e))return t;let a=o.readdirSync(e,{withFileTypes:!0});for(let s of a)if(s.isDirectory()){let n=h.join(e,s.name),r=h.join(n,"index.ts");if(o.existsSync(r)){let i=o.readFileSync(r,"utf-8");t.push({name:s.name,path:r,hasThread:/export\s+(const|async\s+function|function)\s+Thread\b/.test(i),hasFetch:/export\s+(const|async\s+function|function)\s+ThreadFetch\b/.test(i),hasInstall:/export\s+(const|async\s+function|function)\s+ThreadInstall\b/.test(i),hasActivate:/export\s+(const|async\s+function|function)\s+ThreadActivate\b/.test(i)})}}return t}function B(e){let t=e.map(d=>{let c=[],p=d.name.replace(/-/g,"_");return d.hasThread&&c.push(`Thread as Thread_${p}`),d.hasFetch&&c.push(`ThreadFetch as ThreadFetch_${p}`),d.hasInstall&&c.push(`ThreadInstall as ThreadInstall_${p}`),d.hasActivate&&c.push(`ThreadActivate as ThreadActivate_${p}`),`import { ${c.join(", ")} } from './${d.name}/index';`}).join(`
 `),a=e.map(P).filter(Boolean).join(`
 `),s=e.map(j).filter(Boolean).join(`
 `),n=e.map(C).filter(Boolean).join(`,

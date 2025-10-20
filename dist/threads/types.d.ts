@@ -7,13 +7,14 @@ interface ThreadMessageEvent<T = any> extends MessageEvent {
 type ThreadFetchEvent = FetchEvent;
 type ThreadInstallEvent = ExtendableEvent;
 type ThreadActivateEvent = ExtendableEvent;
+type Self = Window & typeof globalThis;
 /**
  * Thread handler function types
  */
 type ThreadMessageHandler<TInput = any, TOutput = any> = (event: ThreadMessageEvent<TInput>) => TOutput | Promise<TOutput>;
-type ThreadFetchHandler = (event: ThreadFetchEvent) => void | Promise<void>;
-type ThreadInstallHandler = (event: ThreadInstallEvent) => void | Promise<void>;
-type ThreadActivateHandler = (event: ThreadActivateEvent) => void | Promise<void>;
+type ThreadFetchHandler = (event: ThreadFetchEvent, self: Self) => void | Promise<void>;
+type ThreadInstallHandler = (event: ThreadInstallEvent, self: Self) => void | Promise<void>;
+type ThreadActivateHandler = (event: ThreadActivateEvent, self: Self) => void | Promise<void>;
 /**
  * Thread definition interface
  */
@@ -60,4 +61,4 @@ interface RegisterThreadsOptions {
     type?: 'classic' | 'module';
 }
 
-export type { RegisterThreadsOptions, ThreadActivateEvent, ThreadActivateHandler, ThreadDefinition, ThreadExecutor, ThreadFetchEvent, ThreadFetchHandler, ThreadInstallEvent, ThreadInstallHandler, ThreadInstance, ThreadMessageEvent, ThreadMessageHandler };
+export type { RegisterThreadsOptions, Self, ThreadActivateEvent, ThreadActivateHandler, ThreadDefinition, ThreadExecutor, ThreadFetchEvent, ThreadFetchHandler, ThreadInstallEvent, ThreadInstallHandler, ThreadInstance, ThreadMessageEvent, ThreadMessageHandler };
