@@ -9,9 +9,9 @@ export interface ThreadMessageEvent<T = any> extends MessageEvent {
   data: T;
 }
 
-export interface ThreadFetchEvent extends FetchEvent {}
-export interface ThreadInstallEvent extends ExtendableEvent {}
-export interface ThreadActivateEvent extends ExtendableEvent {}
+export type ThreadFetchEvent = FetchEvent;
+export type ThreadInstallEvent = ExtendableEvent;
+export type ThreadActivateEvent = ExtendableEvent;
 
 /**
  * Thread handler function types
