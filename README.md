@@ -16,7 +16,23 @@ Framework-agnostic Service Worker thread abstraction system. Organize your Servi
 
 ## 📦 Installation
 
-### Core Package (Client-side only)
+### Interactive Setup (Recommended)
+
+The easiest way to get started is with the interactive CLI:
+
+```bash
+npm install servex-thread
+npx servex-thread
+```
+
+The CLI will guide you through:
+1. Installing esbuild (if needed for building threads)
+2. Detecting or setting up your bundler (Vite, Webpack, Rollup)
+3. Providing next steps and configuration examples
+
+### Manual Installation
+
+#### Core Package (Client-side only)
 
 For runtime usage (browser/client-side):
 
@@ -24,7 +40,7 @@ For runtime usage (browser/client-side):
 npm install servex-thread
 ```
 
-### With Build Tools
+#### With Build Tools
 
 If you need to build threads (compile TypeScript to worker.js), install esbuild:
 
@@ -32,7 +48,7 @@ If you need to build threads (compile TypeScript to worker.js), install esbuild:
 npm install servex-thread esbuild
 ```
 
-### With Bundler Plugins
+#### With Bundler Plugins
 
 **Vite:**
 ```bash
