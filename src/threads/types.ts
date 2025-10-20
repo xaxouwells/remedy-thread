@@ -12,7 +12,9 @@ export interface ThreadMessageEvent<T = any> extends MessageEvent {
 export type ThreadFetchEvent = FetchEvent;
 export type ThreadInstallEvent = ExtendableEvent;
 export type ThreadActivateEvent = ExtendableEvent;
-export type Self = Window & typeof globalThis;
+export type Self = Window & typeof globalThis & {
+  clients: Clients;
+};
 /**
  * Thread handler function types
  */
