@@ -12,7 +12,7 @@ export interface ThreadMessageEvent<T = any> extends MessageEvent {
 export type ThreadFetchEvent = FetchEvent;
 export type ThreadInstallEvent = ExtendableEvent;
 export type ThreadActivateEvent = ExtendableEvent;
-
+export type Self = Window & typeof globalThis;
 /**
  * Thread handler function types
  */
@@ -20,9 +20,9 @@ export type ThreadMessageHandler<TInput = any, TOutput = any> = (
   event: ThreadMessageEvent<TInput>
 ) => TOutput | Promise<TOutput>;
 
-export type ThreadFetchHandler = (event: ThreadFetchEvent) => void | Promise<void>;
-export type ThreadInstallHandler = (event: ThreadInstallEvent) => void | Promise<void>;
-export type ThreadActivateHandler = (event: ThreadActivateEvent) => void | Promise<void>;
+export type ThreadFetchHandler = (event: ThreadFetchEvent, self: Self) => void | Promise<void>;
+export type ThreadInstallHandler = (event: ThreadInstallEvent, self: Self) => void | Promise<void>;
+export type ThreadActivateHandler = (event: ThreadActivateEvent, self: Self) => void | Promise<void>;
 
 /**
  * Thread definition interface

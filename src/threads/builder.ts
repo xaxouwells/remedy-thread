@@ -40,7 +40,7 @@ function generateMessageHandler(thread: ThreadMetadata): string {
 self.addEventListener('message', async (event) => {
   const { threadName } = event.data;
   if (threadName === '${thread.name}') {
-    const result = await Thread_${threadAlias}(event);
+    const result = await Thread_${threadAlias}(event, self);
     if (event.source) {
       event.source.postMessage({ threadName: '${thread.name}', data: result });
     }
@@ -55,7 +55,7 @@ function generateFetchHandlerCall(thread: ThreadMetadata): string {
   if (!thread.hasFetch) return '';
 
   const threadAlias = thread.name.replace(/-/g, '_');
-  return `  ThreadFetch_${threadAlias}(event);`;
+  return `  ThreadFetch_${threadAlias}(event, self);`;
 }
 
 /**
@@ -65,7 +65,7 @@ function generateInstallHandlerCall(thread: ThreadMetadata): string {
   if (!thread.hasInstall) return '';
 
   const threadAlias = thread.name.replace(/-/g, '_');
-  return `    ThreadInstall_${threadAlias}(event)`;
+  return `    ThreadInstall_${threadAlias}(event, self);`;
 }
 
 /**
@@ -75,7 +75,7 @@ function generateActivateHandlerCall(thread: ThreadMetadata): string {
   if (!thread.hasActivate) return '';
 
   const threadAlias = thread.name.replace(/-/g, '_');
-  return `    ThreadActivate_${threadAlias}(event)`;
+  return `    ThreadActivate_${threadAlias}(event, self);`;
 }
 
 async function discoverThreads(threadsDir: string): Promise<ThreadMetadata[]> {
