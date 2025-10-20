@@ -7,7 +7,9 @@ interface ThreadMessageEvent<T = any> extends MessageEvent {
 type ThreadFetchEvent = FetchEvent;
 type ThreadInstallEvent = ExtendableEvent;
 type ThreadActivateEvent = ExtendableEvent;
-type Self = Window & typeof globalThis;
+type Self = Window & typeof globalThis & {
+    clients: Clients;
+};
 /**
  * Thread handler function types
  */

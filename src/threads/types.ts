@@ -73,4 +73,14 @@ export interface RegisterThreadsOptions {
   scope?: string;
   /** Type of worker registration */
   type?: 'classic' | 'module';
+  /** Service worker version (optional) */
+  version?: string;
+  /** Update check interval in milliseconds (default: 3600000 = 1 hour) */
+  updateCheckInterval?: number;
+  /** Callback when a new version is found */
+  onUpdateFound?: (registration: ServiceWorkerRegistration) => void;
+  /** Callback when SW becomes ready to control pages */
+  onControllerChange?: () => void;
+  /** Force update on registration (skip waiting) */
+  forceUpdate?: boolean;
 }
