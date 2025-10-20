@@ -65,7 +65,7 @@ function generateInstallHandlerCall(thread: ThreadMetadata): string {
   if (!thread.hasInstall) return '';
 
   const threadAlias = thread.name.replace(/-/g, '_');
-  return `    ThreadInstall_${threadAlias}(event, self);`;
+  return `      ThreadInstall_${threadAlias}(event, self)`;
 }
 
 /**
@@ -75,7 +75,7 @@ function generateActivateHandlerCall(thread: ThreadMetadata): string {
   if (!thread.hasActivate) return '';
 
   const threadAlias = thread.name.replace(/-/g, '_');
-  return `    ThreadActivate_${threadAlias}(event, self);`;
+  return `      ThreadActivate_${threadAlias}(event, self)`;
 }
 
 async function discoverThreads(threadsDir: string): Promise<ThreadMetadata[]> {
@@ -156,7 +156,7 @@ ${fetchHandlerCalls}
 self.addEventListener('install', async (event) => {
   event.waitUntil(
     Promise.all([
-${installHandlerCalls}
+      ${installHandlerCalls}
     ])
   );
   self.skipWaiting();
@@ -184,7 +184,9 @@ ${activateHandlerCalls}
 ${imports}
 
 ${messageHandlers}
-${fetchListener}${installListener}${activateListener}
+${fetchListener}
+${installListener}
+${activateListener}
 `;
 }
 

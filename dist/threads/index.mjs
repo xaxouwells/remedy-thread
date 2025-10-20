@@ -8,7 +8,7 @@ self.addEventListener('message', async (event) => {
       event.source.postMessage({ threadName: '${e.name}', data: result });
     }
   }
-});`}function I(e){return e.hasFetch?`  ThreadFetch_${e.name.replace(/-/g,"_")}(event, self);`:""}function S(e){return e.hasInstall?`    ThreadInstall_${e.name.replace(/-/g,"_")}(event, self);`:""}function E(e){return e.hasActivate?`    ThreadActivate_${e.name.replace(/-/g,"_")}(event, self);`:""}async function F(e){let t=[];if(!n.existsSync(e))return t;let l=n.readdirSync(e,{withFileTypes:!0});for(let a of l)if(a.isDirectory()){let i=h.join(e,a.name),r=h.join(i,"index.ts");if(n.existsSync(r)){let s=n.readFileSync(r,"utf-8");t.push({name:a.name,path:r,hasThread:/export\s+(const|async\s+function|function)\s+Thread\b/.test(s),hasFetch:/export\s+(const|async\s+function|function)\s+ThreadFetch\b/.test(s),hasInstall:/export\s+(const|async\s+function|function)\s+ThreadInstall\b/.test(s),hasActivate:/export\s+(const|async\s+function|function)\s+ThreadActivate\b/.test(s)})}}return t}function _(e){let t=e.map(d=>{let o=[],p=d.name.replace(/-/g,"_");return d.hasThread&&o.push(`Thread as Thread_${p}`),d.hasFetch&&o.push(`ThreadFetch as ThreadFetch_${p}`),d.hasInstall&&o.push(`ThreadInstall as ThreadInstall_${p}`),d.hasActivate&&o.push(`ThreadActivate as ThreadActivate_${p}`),`import { ${o.join(", ")} } from './${d.name}/index';`}).join(`
+});`}function I(e){return e.hasFetch?`  ThreadFetch_${e.name.replace(/-/g,"_")}(event, self);`:""}function S(e){return e.hasInstall?`      ThreadInstall_${e.name.replace(/-/g,"_")}(event, self)`:""}function E(e){return e.hasActivate?`      ThreadActivate_${e.name.replace(/-/g,"_")}(event, self)`:""}async function F(e){let t=[];if(!n.existsSync(e))return t;let l=n.readdirSync(e,{withFileTypes:!0});for(let a of l)if(a.isDirectory()){let i=h.join(e,a.name),r=h.join(i,"index.ts");if(n.existsSync(r)){let s=n.readFileSync(r,"utf-8");t.push({name:a.name,path:r,hasThread:/export\s+(const|async\s+function|function)\s+Thread\b/.test(s),hasFetch:/export\s+(const|async\s+function|function)\s+ThreadFetch\b/.test(s),hasInstall:/export\s+(const|async\s+function|function)\s+ThreadInstall\b/.test(s),hasActivate:/export\s+(const|async\s+function|function)\s+ThreadActivate\b/.test(s)})}}return t}function _(e){let t=e.map(d=>{let o=[],p=d.name.replace(/-/g,"_");return d.hasThread&&o.push(`Thread as Thread_${p}`),d.hasFetch&&o.push(`ThreadFetch as ThreadFetch_${p}`),d.hasInstall&&o.push(`ThreadInstall as ThreadInstall_${p}`),d.hasActivate&&o.push(`ThreadActivate as ThreadActivate_${p}`),`import { ${o.join(", ")} } from './${d.name}/index';`}).join(`
 `),l=e.map(b).filter(Boolean).join(`
 `),a=e.map(I).filter(Boolean).join(`
 `),i=e.map(S).filter(Boolean).join(`,
@@ -23,7 +23,7 @@ ${a}
 self.addEventListener('install', async (event) => {
   event.waitUntil(
     Promise.all([
-${i}
+      ${i}
     ])
   );
   self.skipWaiting();
@@ -46,5 +46,7 @@ ${r}
 ${t}
 
 ${l}
-${s}${u}${f}
+${s}
+${u}
+${f}
 `}async function W(e={}){let{threadsDir:t="src/threads",output:l="public/worker.js",minify:a=!1,sourcemap:i=!1,target:r="es2020"}=e,s=h.resolve(process.cwd(),t),u=h.resolve(process.cwd(),l),f=await F(s);if(f.length===0){console.warn(`No threads found in ${t}`);return}console.log(`Found ${f.length} thread(s): ${f.map(p=>p.name).join(", ")}`);let d=_(f),o=h.join(s,"__sw-entry__.ts");n.writeFileSync(o,d,"utf-8");try{await A({entryPoints:[o],bundle:!0,outfile:u,format:"iife",platform:"browser",target:Array.isArray(r)?r:[r],minify:a,sourcemap:i,write:!0}),console.log(`\u2713 Built worker.js at ${l}`)}finally{n.existsSync(o)&&n.unlinkSync(o)}}export{W as buildThreads,$ as getRegistration,k as isServiceWorkerSupported,m as registerThreads,w as thread,x as unregisterThreads};
