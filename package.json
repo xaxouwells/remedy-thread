@@ -1,6 +1,6 @@
 {
   "name": "servex-thread",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Framework-agnostic Service Worker thread abstraction system. Organize your SW code into modular threads with a clean, type-safe API.",
   "main": "dist/threads/index.js",
   "module": "dist/threads/index.mjs",
