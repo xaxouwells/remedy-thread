@@ -4,12 +4,9 @@
 interface ThreadMessageEvent<T = any> extends MessageEvent {
     data: T;
 }
-interface ThreadFetchEvent extends FetchEvent {
-}
-interface ThreadInstallEvent extends ExtendableEvent {
-}
-interface ThreadActivateEvent extends ExtendableEvent {
-}
+type ThreadFetchEvent = FetchEvent;
+type ThreadInstallEvent = ExtendableEvent;
+type ThreadActivateEvent = ExtendableEvent;
 /**
  * Thread handler function types
  */
