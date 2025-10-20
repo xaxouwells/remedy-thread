@@ -1,10 +1,11 @@
 /**
  * Thread abstraction system for Service Workers
  * Framework-agnostic implementation
+ *
+ * Note: For build-time functionality (buildThreads), import from 'servex-thread/builder'
  */
 
 export { thread, registerThreads, isServiceWorkerSupported, getRegistration, unregisterThreads } from './client';
-export { buildThreads } from './builder';
 export type {
   ThreadDefinition,
   ThreadInstance,
@@ -19,4 +20,3 @@ export type {
   ThreadActivateEvent,
   RegisterThreadsOptions,
 } from './types';
-export type { ThreadBuildOptions } from './builder';

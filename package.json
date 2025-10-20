@@ -45,6 +45,11 @@
       "types": "./dist/plugins/threads-rollup.d.ts",
       "require": "./dist/plugins/threads-rollup.js",
       "import": "./dist/plugins/threads-rollup.mjs"
+    },
+    "./builder": {
+      "types": "./dist/threads/builder.d.ts",
+      "require": "./dist/threads/builder.js",
+      "import": "./dist/threads/builder.mjs"
     }
   },
   "scripts": {
