@@ -1,6 +1,6 @@
 {
   "name": "remedy-thread",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Framework-agnostic Service Worker thread abstraction system. Organize your SW code into modular threads with a clean, type-safe API.",
   "private": true,
   "main": "dist/threads/index.js",
