@@ -12,16 +12,47 @@ Framework-agnostic Service Worker thread abstraction system. Organize your Servi
 - 🌐 **Framework Agnostic** - Works with any framework (React, Vue, Svelte, etc.)
 - ⚡ **Performance** - Each thread has its own message listener
 - 🔌 **Plugin Support** - Vite, Webpack, Rollup plugins included
+- 🪶 **Zero Dependencies** - Core package has no dependencies, install only what you need
 
 ## 📦 Installation
 
+### Core Package (Client-side only)
+
+For runtime usage (browser/client-side):
+
 ```bash
 npm install servex-thread
-# or
-yarn add servex-thread
-# or
-pnpm add servex-thread
 ```
+
+### With Build Tools
+
+If you need to build threads (compile TypeScript to worker.js), install esbuild:
+
+```bash
+npm install servex-thread esbuild
+```
+
+### With Bundler Plugins
+
+**Vite:**
+```bash
+npm install servex-thread esbuild
+npm install -D vite  # Usually already installed
+```
+
+**Webpack:**
+```bash
+npm install servex-thread esbuild
+npm install -D webpack
+```
+
+**Rollup:**
+```bash
+npm install servex-thread esbuild
+npm install -D rollup
+```
+
+> **Note:** The core package has **zero dependencies**. Bundler tools (esbuild, vite, webpack, rollup) are optional peer dependencies - install only what you need!
 
 ## 🚀 Quick Start
 
@@ -70,7 +101,7 @@ npx tsx build-threads.ts
 **build-threads.ts:**
 
 ```typescript
-import { buildThreads } from 'servex-thread';
+import { buildThreads } from 'servex-thread/builder';
 
 buildThreads({
   threadsDir: 'src/threads',
@@ -78,6 +109,8 @@ buildThreads({
   minify: true,
 }).catch(console.error);
 ```
+
+> **Note:** The builder is imported from `'servex-thread/builder'` to keep the core package lightweight. Make sure you have `esbuild` installed to use the builder.
 
 ### 4. Use in Your App
 
@@ -298,7 +331,23 @@ self.addEventListener('install', async (event) => {
 
 ## 🎯 API Reference
 
-### Client API
+### Package Exports
+
+The package provides several entry points for different use cases:
+
+| Import Path | Purpose | Dependencies |
+|------------|---------|--------------|
+| `servex-thread` | Client-side runtime API | None |
+| `servex-thread/builder` | Build-time thread compiler | Requires `esbuild` |
+| `servex-thread/vite-threads` | Vite plugin | Requires `vite` + `esbuild` |
+| `servex-thread/webpack-threads` | Webpack plugin | Requires `webpack` + `esbuild` |
+| `servex-thread/rollup-threads` | Rollup plugin | Requires `rollup` + `esbuild` |
+
+### Client API (from `servex-thread`)
+
+```typescript
+import { registerThreads, thread, ... } from 'servex-thread';
+```
 
 - `registerThreads(options?)` - Register the service worker
 - `thread<TInput, TOutput>(name)` - Create a thread instance
@@ -306,11 +355,29 @@ self.addEventListener('install', async (event) => {
 - `getRegistration()` - Get current registration
 - `unregisterThreads()` - Unregister service worker
 
-### Build API
+### Build API (from `servex-thread/builder`)
+
+```typescript
+import { buildThreads } from 'servex-thread/builder';
+```
 
 - `buildThreads(options?)` - Compile threads into worker.js
 
 ### Types
+
+All types are available from the main export:
+
+```typescript
+import type {
+  ThreadMessageEvent,
+  ThreadFetchEvent,
+  ThreadInstallEvent,
+  ThreadActivateEvent,
+  RegisterThreadsOptions,
+  ThreadBuildOptions,
+  // ... etc
+} from 'servex-thread';
+```
 
 - `ThreadMessageEvent<T>` - Message event with typed data
 - `ThreadFetchEvent` - Fetch event
