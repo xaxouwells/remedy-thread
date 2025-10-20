@@ -1,4 +1,4 @@
-# Servex Thread
+# Remedy Thread
 
 Framework-agnostic Service Worker thread abstraction system. Organize your Service Worker code into modular "threads" with a clean, type-safe API.
 
@@ -21,7 +21,7 @@ Framework-agnostic Service Worker thread abstraction system. Organize your Servi
 Install the package and the setup wizard will launch automatically:
 
 ```bash
-npm install servex-thread
+npm install remedy-thread
 ```
 
 The **postinstall wizard** will guide you through:
@@ -31,7 +31,7 @@ The **postinstall wizard** will guide you through:
 
 You can **skip the wizard** and run it later with:
 ```bash
-npx servex-thread
+npx remedy-thread
 ```
 
 ### Manual Installation
@@ -41,7 +41,7 @@ npx servex-thread
 For runtime usage (browser/client-side):
 
 ```bash
-npm install servex-thread
+npm install remedy-thread
 ```
 
 #### With Build Tools
@@ -49,26 +49,26 @@ npm install servex-thread
 If you need to build threads (compile TypeScript to worker.js), install esbuild:
 
 ```bash
-npm install servex-thread esbuild
+npm install remedy-thread esbuild
 ```
 
 #### With Bundler Plugins
 
 **Vite:**
 ```bash
-npm install servex-thread esbuild
+npm install remedy-thread esbuild
 npm install -D vite  # Usually already installed
 ```
 
 **Webpack:**
 ```bash
-npm install servex-thread esbuild
+npm install remedy-thread esbuild
 npm install -D webpack
 ```
 
 **Rollup:**
 ```bash
-npm install servex-thread esbuild
+npm install remedy-thread esbuild
 npm install -D rollup
 ```
 
@@ -90,7 +90,7 @@ src/
 **src/threads/my-thread/index.ts:**
 
 ```typescript
-import type { ThreadMessageEvent, Self } from 'servex-thread';
+import type { ThreadMessageEvent, Self } from 'remedy-thread';
 
 interface Input {
   message: string;
@@ -121,7 +121,7 @@ npx tsx build-threads.ts
 **build-threads.ts:**
 
 ```typescript
-import { buildThreads } from 'servex-thread/builder';
+import { buildThreads } from 'remedy-thread/builder';
 
 buildThreads({
   threadsDir: 'src/threads',
@@ -130,12 +130,12 @@ buildThreads({
 }).catch(console.error);
 ```
 
-> **Note:** The builder is imported from `'servex-thread/builder'` to keep the core package lightweight. Make sure you have `esbuild` installed to use the builder.
+> **Note:** The builder is imported from `'remedy-thread/builder'` to keep the core package lightweight. Make sure you have `esbuild` installed to use the builder.
 
 ### 4. Use in Your App
 
 ```typescript
-import { registerThreads, thread } from 'servex-thread';
+import { registerThreads, thread } from 'remedy-thread';
 
 // Register threads once
 await registerThreads({ workerPath: '/worker.js' });
@@ -208,7 +208,7 @@ export function ThreadActivate(event: ThreadActivateEvent, self: Self): void {
 ```typescript
 // vite.config.ts
 import { defineConfig } from 'vite';
-import { threadsPlugin } from 'servex-thread/vite-threads';
+import { threadsPlugin } from 'remedy-thread/vite-threads';
 
 export default defineConfig({
   plugins: [
@@ -225,7 +225,7 @@ export default defineConfig({
 
 ```javascript
 // webpack.config.js
-const { ThreadsWebpackPlugin } = require('servex-thread/webpack-threads');
+const { ThreadsWebpackPlugin } = require('remedy-thread/webpack-threads');
 
 module.exports = {
   plugins: [
@@ -242,7 +242,7 @@ module.exports = {
 
 ```javascript
 // rollup.config.js
-import { threadsRollupPlugin } from 'servex-thread/rollup-threads';
+import { threadsRollupPlugin } from 'remedy-thread/rollup-threads';
 
 export default {
   plugins: [
@@ -357,16 +357,16 @@ The package provides several entry points for different use cases:
 
 | Import Path | Purpose | Dependencies |
 |------------|---------|--------------|
-| `servex-thread` | Client-side runtime API | None |
-| `servex-thread/builder` | Build-time thread compiler | Requires `esbuild` |
-| `servex-thread/vite-threads` | Vite plugin | Requires `vite` + `esbuild` |
-| `servex-thread/webpack-threads` | Webpack plugin | Requires `webpack` + `esbuild` |
-| `servex-thread/rollup-threads` | Rollup plugin | Requires `rollup` + `esbuild` |
+| `remedy-thread` | Client-side runtime API | None |
+| `remedy-thread/builder` | Build-time thread compiler | Requires `esbuild` |
+| `remedy-thread/vite-threads` | Vite plugin | Requires `vite` + `esbuild` |
+| `remedy-thread/webpack-threads` | Webpack plugin | Requires `webpack` + `esbuild` |
+| `remedy-thread/rollup-threads` | Rollup plugin | Requires `rollup` + `esbuild` |
 
-### Client API (from `servex-thread`)
+### Client API (from `remedy-thread`)
 
 ```typescript
-import { registerThreads, thread, ... } from 'servex-thread';
+import { registerThreads, thread, ... } from 'remedy-thread';
 ```
 
 - `registerThreads(options?)` - Register the service worker
@@ -375,10 +375,10 @@ import { registerThreads, thread, ... } from 'servex-thread';
 - `getRegistration()` - Get current registration
 - `unregisterThreads()` - Unregister service worker
 
-### Build API (from `servex-thread/builder`)
+### Build API (from `remedy-thread/builder`)
 
 ```typescript
-import { buildThreads } from 'servex-thread/builder';
+import { buildThreads } from 'remedy-thread/builder';
 ```
 
 - `buildThreads(options?)` - Compile threads into worker.js
@@ -396,7 +396,7 @@ import type {
   RegisterThreadsOptions,
   ThreadBuildOptions,
   // ... etc
-} from 'servex-thread';
+} from 'remedy-thread';
 ```
 
 - `ThreadMessageEvent<T>` - Message event with typed data

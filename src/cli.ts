@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Servex Thread CLI
+ * Remedy Thread CLI
  * Interactive setup for installing dependencies
  */
 
@@ -67,20 +67,20 @@ function installPackages(packages: string[], dev: boolean = false): void {
 }
 
 async function main() {
-  // Skip if running in the servex-thread repo itself (dev mode)
-  if (process.env.npm_package_name === 'servex-thread') {
+  // Skip if running in the remedy-thread repo itself (dev mode)
+  if (process.env.npm_package_name === 'remedy-thread') {
     return;
   }
 
-  console.log('\n🧵 Welcome to Servex Thread Setup!\n');
+  console.log('\n🧵 Welcome to Remedy Thread Setup!\n');
 
   // Ask if user wants to run setup
   const wantsSetup = await confirm(
-    '📦 Would you like to configure servex-thread now? (you can skip and run "npx servex-thread" later)'
+    '📦 Would you like to configure remedy-thread now? (you can skip and run "npx remedy-thread" later)'
   );
 
   if (!wantsSetup) {
-    console.log('\n✅ Skipped setup. Run "npx servex-thread" anytime to configure.\n');
+    console.log('\n✅ Skipped setup. Run "npx remedy-thread" anytime to configure.\n');
     return;
   }
 
@@ -119,7 +119,7 @@ async function main() {
 
   // Install dependencies
   console.log('\n📋 Summary:');
-  console.log('  - Servex Thread: ✅ (already installing)');
+  console.log('  - Remedy Thread: ✅ (already installed)');
   console.log(`  - esbuild: ${answers.installEsbuild ? '✅' : '❌'}`);
   console.log(`  - Bundler: ${answers.bundler || 'Already installed'}`);
 
@@ -152,29 +152,29 @@ async function main() {
 
   if (answers.bundler === 'vite') {
     console.log('2. Add the Vite plugin to vite.config.ts:');
-    console.log('   import { threadsPlugin } from \'servex-thread/vite-threads\';');
+    console.log('   import { threadsPlugin } from \'remedy-thread/vite-threads\';');
     console.log('   export default defineConfig({');
     console.log('     plugins: [threadsPlugin()],');
     console.log('   });\n');
   } else if (answers.bundler === 'webpack') {
     console.log('2. Add the Webpack plugin to webpack.config.js:');
-    console.log('   const { ThreadsWebpackPlugin } = require(\'servex-thread/webpack-threads\');');
+    console.log('   const { ThreadsWebpackPlugin } = require(\'remedy-thread/webpack-threads\');');
     console.log('   module.exports = {');
     console.log('     plugins: [new ThreadsWebpackPlugin()],');
     console.log('   };\n');
   } else if (answers.bundler === 'rollup') {
     console.log('2. Add the Rollup plugin to rollup.config.js:');
-    console.log('   import { threadsRollupPlugin } from \'servex-thread/rollup-threads\';');
+    console.log('   import { threadsRollupPlugin } from \'remedy-thread/rollup-threads\';');
     console.log('   export default {');
     console.log('     plugins: [threadsRollupPlugin()],');
     console.log('   };\n');
   } else if (answers.installEsbuild) {
     console.log('2. Create a build script (build-threads.ts):');
-    console.log('   import { buildThreads } from \'servex-thread/builder\';');
+    console.log('   import { buildThreads } from \'remedy-thread/builder\';');
     console.log('   buildThreads().catch(console.error);\n');
   }
 
-  console.log('3. Read the docs: https://www.npmjs.com/package/servex-thread\n');
+  console.log('3. Read the docs: https://www.npmjs.com/package/remedy-thread\n');
 }
 
 main().catch((error) => {
