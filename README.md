@@ -16,19 +16,23 @@ Framework-agnostic Service Worker thread abstraction system. Organize your Servi
 
 ## 📦 Installation
 
-### Interactive Setup (Recommended)
+### Automatic Setup (Recommended)
 
-The easiest way to get started is with the interactive CLI:
+Install the package and the setup wizard will launch automatically:
 
 ```bash
 npm install servex-thread
-npx servex-thread
 ```
 
-The CLI will guide you through:
+The **postinstall wizard** will guide you through:
 1. Installing esbuild (if needed for building threads)
 2. Detecting or setting up your bundler (Vite, Webpack, Rollup)
 3. Providing next steps and configuration examples
+
+You can **skip the wizard** and run it later with:
+```bash
+npx servex-thread
+```
 
 ### Manual Installation
 

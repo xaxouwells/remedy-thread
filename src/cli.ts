@@ -67,7 +67,22 @@ function installPackages(packages: string[], dev: boolean = false): void {
 }
 
 async function main() {
+  // Skip if running in the servex-thread repo itself (dev mode)
+  if (process.env.npm_package_name === 'servex-thread') {
+    return;
+  }
+
   console.log('\n🧵 Welcome to Servex Thread Setup!\n');
+
+  // Ask if user wants to run setup
+  const wantsSetup = await confirm(
+    '📦 Would you like to configure servex-thread now? (you can skip and run "npx servex-thread" later)'
+  );
+
+  if (!wantsSetup) {
+    console.log('\n✅ Skipped setup. Run "npx servex-thread" anytime to configure.\n');
+    return;
+  }
 
   const answers: Answers = {
     installEsbuild: false,

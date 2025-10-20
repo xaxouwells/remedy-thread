@@ -58,6 +58,7 @@
   "scripts": {
     "build": "tsup",
     "postbuild": "chmod +x dist/cli.js",
+    "postinstall": "node dist/cli.js || exit 0",
     "dev": "tsup --watch",
     "prepublishOnly": "npm run build"
   },
