@@ -19,4 +19,5 @@ export type {
   ThreadInstallEvent,
   ThreadActivateEvent,
   RegisterThreadsOptions,
+  Self
 } from './types';
