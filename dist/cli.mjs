@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import{execSync as d}from"child_process";import*as i from"readline";function a(o){let e=i.createInterface({input:process.stdin,output:process.stdout});return new Promise(l=>{e.question(o,n=>{e.close(),l(n.trim())})})}async function t(o){let e=await a(`${o} (y/n): `);return e.toLowerCase()==="y"||e.toLowerCase()==="yes"}async function u(o,e){console.log(`
-${o}`),e.forEach((s,c)=>{console.log(`  ${c+1}. ${s}`)});let l=await a(`
+import{execSync as d}from"child_process";import*as a from"readline";function i(o){let e=a.createInterface({input:process.stdin,output:process.stdout});return new Promise(l=>{e.question(o,n=>{e.close(),l(n.trim())})})}async function t(o){let e=await i(`${o} (y/n): `);return e.toLowerCase()==="y"||e.toLowerCase()==="yes"}async function u(o,e){console.log(`
+${o}`),e.forEach((s,c)=>{console.log(`  ${c+1}. ${s}`)});let l=await i(`
 Enter your choice (1-`+e.length+"): "),n=parseInt(l)-1;return n>=0&&n<e.length?e[n]:(console.log("Invalid choice, defaulting to first option."),e[0])}function r(o,e=!1){let n=`npm install ${e?"-D":""} ${o.join(" ")}`;console.log(`
 \u{1F4E6} Installing: ${o.join(", ")}...`);try{d(n,{stdio:"inherit"}),console.log(`\u2705 Installation complete!
 `)}catch(s){console.error("\u274C Installation failed:",s),process.exit(1)}}async function g(){if(process.env.npm_package_name==="remedy-thread")return;if(console.log(`
@@ -16,7 +16,6 @@ Enter your choice (1-`+e.length+"): "),n=parseInt(l)-1;return n>=0&&n<e.length?e
 `),console.log("1. Create your thread structure:"),console.log("   mkdir -p src/threads/my-thread"),console.log(`   touch src/threads/my-thread/index.ts
 `),e.bundler==="vite"?(console.log("2. Add the Vite plugin to vite.config.ts:"),console.log("   import { threadsPlugin } from 'remedy-thread/vite-threads';"),console.log("   export default defineConfig({"),console.log("     plugins: [threadsPlugin()],"),console.log(`   });
 `)):e.bundler==="webpack"?(console.log("2. Add the Webpack plugin to webpack.config.js:"),console.log("   const { ThreadsWebpackPlugin } = require('remedy-thread/webpack-threads');"),console.log("   module.exports = {"),console.log("     plugins: [new ThreadsWebpackPlugin()],"),console.log(`   };
-`)):e.bundler==="rollup"?(console.log("2. Add the Rollup plugin to rollup.config.js:"),console.log("   import { threadsRollupPlugin } from 'remedy-thread/rollup-threads';"),console.log("   export default {"),console.log("     plugins: [threadsRollupPlugin()],"),console.log(`   };
 `)):e.installEsbuild&&(console.log("2. Create a build script (build-threads.ts):"),console.log("   import { buildThreads } from 'remedy-thread/builder';"),console.log(`   buildThreads().catch(console.error);
 `)),console.log(`3. Read the docs: https://www.npmjs.com/package/remedy-thread
 `)}g().catch(o=>{console.error("Error:",o),process.exit(1)});

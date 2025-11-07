@@ -162,12 +162,6 @@ async function main() {
     console.log('   module.exports = {');
     console.log('     plugins: [new ThreadsWebpackPlugin()],');
     console.log('   };\n');
-  } else if (answers.bundler === 'rollup') {
-    console.log('2. Add the Rollup plugin to rollup.config.js:');
-    console.log('   import { threadsRollupPlugin } from \'remedy-thread/rollup-threads\';');
-    console.log('   export default {');
-    console.log('     plugins: [threadsRollupPlugin()],');
-    console.log('   };\n');
   } else if (answers.installEsbuild) {
     console.log('2. Create a build script (build-threads.ts):');
     console.log('   import { buildThreads } from \'remedy-thread/builder\';');
